@@ -1,0 +1,73 @@
+<header>
+    <div class="navbar-fixed">
+        <nav class="teal darken-1">
+            <div class="nav-wrapper">
+                <div class="container">
+                    <a href="{{ url_for('get_all_posts') }}" class="brand-logo">Global Launchpad Initiative</a>
+                    <a href="#" data-activates="nav-drawer" class="button-collapse">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="side-nav fixed white" id="nav-drawer">
+                        {# Check if the user is logged in, else show him the login page #}
+                        {% if 'credentials' not in login_session %}
+                            <li><a href="">Login</a></li>
+                        {% else %}
+                            <li>
+                                <div class="userView">
+                                    <div class="background">
+                                        <img src="{{ url_for('static', filename='img/nav_back.jpg') }}">
+                                    </div>
+                                    <a href="#!">
+                                        <img class="circle" alt="img" src="{{ login_session['picture'] }}">
+                                    </a>
+                                    <a href="#!">
+                                        <span class="white-text name">{{ login_session['username'] }}</span>
+                                    </a>
+                                    <a href="#!">
+                                        <span class="white-text email">{{ login_session['email'] }}</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li><a href="">Logout</a></li>
+                        {% endif %}
+                        <li>
+                            <div class="divider"></div>
+                        </li>
+                        <li>
+                            <div class="subheader">&nbsp;&nbsp;Categories</div>
+                        </li>
+                        <li>
+                            <a href="" class="waves-effect">All Posts</a>
+                        </li>
+                        <li class="no-padding">
+                            <ul class="collapsible collapsible-accordion">
+                                {% for source in sources %}
+                                    <li>
+                                        <a class="collapsible-header">{{ source.name }} <i class="material-icons right">arrow_drop_down</i></a>
+                                        <div class="collapsible-body">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ url_for('quotes_for_source', src_id=source.id) }}"> Show
+                                                        All</a>
+                                                </li>
+                                                {% if 'credentials' in login_session %}
+                                                    <li>
+                                                        <a href="{{ url_for('delete_source', src_id=source.id) }}">Delete</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{{ url_for('edit_source', src_id=source.id) }}">Edit</a>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href=""><i class="material-icons">+</i> Add Category</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,8 @@
+{% extends "main.html" %}
+{% block content %}
+    {% include "header.html" %}
+    {% for post in posts %}
+        {{ post }}
+    {% endfor %}
+
+{% endblock %}

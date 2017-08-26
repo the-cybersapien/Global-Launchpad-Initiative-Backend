@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask import render_template
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -22,7 +23,7 @@ session = DBSession()
 @app.route('/get/posts')
 def get_all_posts():
     posts = session.query(Content).all()
-    return jsonify(Posts=[post.serialize for post in posts])
+    return render_template('temp.html', posts=posts)
 
 
 @app.route('/get/categories')
