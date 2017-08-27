@@ -12,12 +12,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- Import Styles CSS -->
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <title>Global Launchpad initiative</title>
 </head>
 <body class="grey lighten-2">
+
+{% include "header.html" %}
 {% block content %}
 {% endblock %}
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
 <script src="{{ url_for('static', filename='app.js') }}"></script>
 <script>

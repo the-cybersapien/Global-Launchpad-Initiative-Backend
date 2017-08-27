@@ -1,0 +1,67 @@
+{% extends "common.html" %}
+{% block content %}
+    <main class="container">
+        <div class="row">
+            <div class="card white lighten-2 col s12 offset-m3 m6">
+                <div class="card-content black-text">
+                    <span class="card-title">Login</span>
+                    <div class="row">
+                        <div class="col s1 offset-s4">
+                            <div id="googleSignIn">
+                                <span class="g-signin"
+                                      data-scope="openid email"
+                                      data-clientid="172786473967-l46fj64vc94q0spcrvk34hnq5tfd5vp8.apps.googleusercontent.com"
+                                      data-redirecturi="postmessage"
+                                      data-accesstype="offline"
+                                      data-cookiepolicy="single_host_origin"
+                                      data-callback="googleSignInCallback"
+                                      data-approvalprompt="force">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12" id="result"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Pre-Requisite For Google Login -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="//apis.google.com/js/platform.js?onload=start"></script>
+    <!-- End Prerequisites -->
+
+    <!-- Sign in script and callback -->
+    <script type="text/javascript">
+        function googleSignInCallback(authResult) {
+            if (authResult['code']) {
+                $("#googleSignIn").attr('style', 'display: none');
+                // Send one time response to server
+                // If server responds, inform of login and redirect back to main page
+                $.ajax({
+                    type: 'POST',
+                    url: '/gconnect?state={{ STATE }}',
+                    processData: false,
+                    data: authResult['code'],
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    success: function (result) {
+                        if (result) {
+                            $('#result').html('Login Successful! <br> Redirecting...');
+                            setTimeout(function () {
+                                window.location.href = '/';
+                            }, 1500);
+                        } else if (authResult['error']) {
+                            Materialize.toast('An error occurred!');
+                            console.log('Error: ' + authResult['error']);
+                        } else {
+                            Materialize.toast('Failed to connect to server!');
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+{% endblock %}
+

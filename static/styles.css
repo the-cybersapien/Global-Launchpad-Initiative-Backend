@@ -13,19 +13,3 @@ header, main, footer {
 #sidenav-overlay {
     z-index: 996;
 }
-
-@media screen and (max-width: 991px) {
-    .quote-card {
-        max-height: 350px;
-    }
-}
-
-@media screen and (min-width: 992px) {
-    .quote-card {
-        max-height: 100%;
-    }
-}
-
-.btn-add {
-    margin-top: 15px;
-}
