@@ -1,0 +1,68 @@
+<header>
+    <div class="navbar-fixed">
+        <nav class="teal darken-1">
+            <div class="nav-wrapper">
+                <div class="container">
+                    <a href="{{ url_for('home') }}" class="brand-logo">Global Launchpad Initiative</a>
+                    <a href="#" data-activates="nav-drawer" class="button-collapse">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="side-nav fixed white" id="nav-drawer">
+
+                        {# Check if the user is logged in #}
+                        {% if 'credentials' not in login_session %}
+                            <li><a href="{{ url_for('show_login') }}">Login</a></li>
+                        {% else %}
+                            <li>
+                                <div class="userView">
+                                    <div class="background">
+                                        <img src="{{ url_for('static', filename='img/nav_back.jpg') }}">
+                                    </div>
+                                    <a href="#!">
+                                        <img src="{{ login_session['photo'] }}" alt="img" class="circle">
+                                    </a>
+                                    <a href="#!">
+                                        <span class="white-text name">{{ login_session['username'] }}</span>
+                                    </a>
+                                    <a href="#!">
+                                        <span class="white-text name">{{ login_session['email'] }}</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('gdisconnect') }}">Logout</a>
+                            </li>
+                        {% endif %}
+
+                        <li>
+                            <div class="divider"></div>
+                        </li>
+                        <li>
+                            <div class="subheader">&nbsp;&nbsp;Categories</div>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('home') }}" class="waves-effect">All Posts</a>
+                        </li>
+                        <li class="no-padding">
+                            <ul class="collapsible collapsible-accordion">
+                                {% for cat in categories %}
+                                    <li>
+                                        <a class="collapsible-header">{{ cat.name }} <i class="material-icons right">arrow_drop_down</i></a>
+                                        <div class="collapsible-body">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ url_for('get_posts', cat_id=cat.id) }}"> Show All</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="/new/category"><i class="material-icons">add</i> Add Category</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

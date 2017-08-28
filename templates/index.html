@@ -1,0 +1,47 @@
+{% extends "common.html" %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6">
+                <div class="row">
+                    {% for post in posts %}
+                        {% if loop.index0 % 2 == 0 %}
+                            {% include 'post_card.html' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="row">
+                    {% for post in posts %}
+                        {% if loop.index0 % 2 == 1 %}
+                            {% include 'post_card.html' %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">add</i>
+            </a>
+            <ul>
+                <li><a href="/new/post"
+                       class="btn-floating red waves-effect tooltipped"
+                       data-position="left"
+                       data-delay="10"
+                       data-tooltip="New Post">P</a>
+                </li>
+                <li><a href="/new/category"
+                       class="btn-floating yellow darken-2 waves-effect tooltipped"
+                       data-position="left"
+                       data-delay="10"
+                       data-tooltip="New Category">C</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock %}

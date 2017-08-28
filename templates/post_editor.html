@@ -1,0 +1,82 @@
+{% extends 'common.html' %}
+{% block content %}
+    <main class="container">
+        <div class="row">
+            <div class="card white lighten-2 col s12">
+                <div class="card-content black-text">
+                <span class="card-title">
+                    {% if post != none %}
+                        Edit Post {{ post.name }}
+                    {% else %}
+                        Add New
+                    {% endif %}
+                </span>
+
+                    <form action="
+                        {% if post != none %}
+                            {{ url_for('edit_post', post_id=post.id) }}
+                        {% else %}
+                            {{ url_for('edit_post') }}
+                        {% endif %}
+                        " method="post">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="post_title" type="text" name="post_title" class="validate" data-length="75"
+                                       value="{% if post != none %}{{ post.title }}{% endif %}"
+                                       max="75" min="5" required maxlength="75" minlength="5">
+                                <label for="post_title" data-error="Error! Length not in 5 to 75 range!">Post
+                                    Title</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="post_url" type="url" name="post_url" class="validate"
+                                       max="250" min="5" required minlength="5"
+                                       value="{% if post != none %}{{ post.url }}{% endif %}">
+                                <label for="post_url" data-error="Invalid URL!">URL</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="post_description" class="materialize-textarea" data-length="500"
+                                          name="post_description" maxlength="500"
+                                          value="{% if post != none %}{{ post.description }}{% endif %}"></textarea>
+                                <label for="post_description">Description</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input type="text" class="datepicker" id="post_date" name="post_date">
+                                <label for="post_date">Date of Event</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <select name="cat_id" id="cat_id">
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}"
+                                                {% if post != none and post.category.id == category.id %}selected{% endif %}>{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <label for="cat_id">Category</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col right">
+                                <button class="btn waves-effect waves-light" type="submit" name="action">SUBMIT <i
+                                        class="material-icons right">send</i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').pickadate({
+                selectMonth: true,
+                min: new Date()
+            });
+        })
+    </script>
+{% endblock %}

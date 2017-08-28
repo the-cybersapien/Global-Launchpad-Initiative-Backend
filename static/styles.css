@@ -1,0 +1,15 @@
+
+header, main, footer {
+    padding-left: 300px;
+}
+
+@media only screen and (max-width: 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+}
+
+/* Fix the sidenav overlay bug in materialize */
+#sidenav-overlay {
+    z-index: 996;
+}

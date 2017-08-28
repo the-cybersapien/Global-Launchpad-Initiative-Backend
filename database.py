@@ -11,13 +11,12 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
-    email = Column(String(75), nullable=False)
+    email = Column(String(75), nullable=False, unique=True)
     photo = Column(String(500), nullable=True)
 
     @property
     def serialize(self):
         return {
-            'id': self.id,
             'name': self.name,
             'email': self.email,
             'photo': self.photo
@@ -49,10 +48,9 @@ class Content(Base):
 
     id = Column(Integer, primary_key=True)
     title = Column(String(75), nullable=False)
-    description = Column(String(350), nullable=True)
-    photo = Column(String(500), nullable=True)
+    description = Column(String(500), nullable=True)
     timeAdded = Column(Integer, nullable=False)
-    date = Column(String(15), nullable=False)
+    date = Column(String(50), nullable=False)
     url = Column(String(250), nullable=False)
     author_id = Column(Integer, ForeignKey('users.id'))
     author = relationship(User, cascade='delete')
@@ -64,9 +62,8 @@ class Content(Base):
         return {
             'id': self.id,
             'title': self.title,
-            'category': self.category,
+            'category': self.category.name,
             'description': self.description,
-            'photo': self.photo,
             'timeAdded': self.timeAdded,
             'date': self.date,
             'url': self.url,
