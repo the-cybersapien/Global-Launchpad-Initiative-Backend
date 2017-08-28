@@ -51,7 +51,7 @@
                                         <div class="collapsible-body">
                                             <ul>
                                                 <li>
-                                                    <a href="{# TODO: Add a Show all URL #}"> Show All</a>
+                                                    <a href="{{ url_for('get_posts', cat_id=cat.id) }}"> Show All</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -59,7 +59,7 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                        <li><a href=""><i class="material-icons">+</i> Add Category</a></li>
+                        <li><a href="/new/category"><i class="material-icons">add</i> Add Category</a></li>
                     </ul>
                 </div>
             </div>

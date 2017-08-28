@@ -50,7 +50,7 @@ class Content(Base):
     title = Column(String(75), nullable=False)
     description = Column(String(500), nullable=True)
     timeAdded = Column(Integer, nullable=False)
-    date = Column(String(25), nullable=False)
+    date = Column(String(50), nullable=False)
     url = Column(String(250), nullable=False)
     author_id = Column(Integer, ForeignKey('users.id'))
     author = relationship(User, cascade='delete')

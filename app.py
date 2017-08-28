@@ -179,9 +179,17 @@ def home():
     return render_template('index.html', login_session=login_session, categories=categories, posts=posts)
 
 
+@app.route('/get/<int:cat_id>/posts')
+def get_posts(cat_id):
+    categories = session.query(Category).all()
+    posts = session.query(Content).filter_by(category_id=cat_id).all()
+    return render_template('index.html', login_session=login_session, categories=categories, posts=posts)
+
+
 @app.route('/new/post', methods=['GET', 'POST'])
 @app.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 def edit_post(post_id=-1):
+    print(request.form)
     if 'username' not in login_session:
         flash('You need to login to make changes!')
         return redirect(url_for('show_login'))
@@ -244,7 +252,6 @@ def get_all_categories():
 @app.route('/new/category', methods=['GET', 'POST'])
 @app.route('/cat/<int:cat_id>/edit', methods=['GET', 'POST'])
 def edit_cat(cat_id=-1):
-    
     if 'username' not in login_session:
         flash("You need to login to make changes!")
         return redirect(url_for('show_login'))
@@ -267,7 +274,8 @@ def edit_cat(cat_id=-1):
             category = session.query(Category).filter_by(id=cat_id).one()
         except NoResultFound:
             category = None
-        return render_template('cat_editor.html', login_session=login_session, category=category)
+        categories = session.query(Category).all()
+        return render_template('cat_editor.html', login_session=login_session, category=category, categories=categories)
 
 
 if __name__ == '__main__':

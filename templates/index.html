@@ -7,26 +7,7 @@
                 <div class="row">
                     {% for post in posts %}
                         {% if loop.index0 % 2 == 0 %}
-                            <div class="col s12">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <span class="card-title black-text">{{ post.title }}</span>
-                                        <p>{{ post.description }}</p>
-
-                                    </div>
-                                    <div class="card-action">
-                                        <div>
-                                            <span class="teal-text text-darken-3">{{ post.category.name }}</span>
-                                            <span class="teal-text text-darken-3 right">By: <a
-                                                    href="mailto:{{ post.author.email }}">{{ post.author.name }}</a></span>
-                                        </div>
-                                        <div>
-                                            <span class="teal-text text-darken-3">On <a>{{ post.date }}</a></span>
-                                            <a href="{{ post.url }}" class="right">Website</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% include 'post_card.html' %}
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -35,19 +16,32 @@
                 <div class="row">
                     {% for post in posts %}
                         {% if loop.index0 % 2 == 1 %}
-                            <div class="col s12">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <span class="card-title">{{ post.title }}</span>
-                                    </div>
-                                </div>
-                            </div>
+                            {% include 'post_card.html' %}
                         {% endif %}
                     {% endfor %}
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">add</i>
+            </a>
+            <ul>
+                <li><a href="/new/post"
+                       class="btn-floating red waves-effect tooltipped"
+                       data-position="left"
+                       data-delay="10"
+                       data-tooltip="New Post">P</a>
+                </li>
+                <li><a href="/new/category"
+                       class="btn-floating yellow darken-2 waves-effect tooltipped"
+                       data-position="left"
+                       data-delay="10"
+                       data-tooltip="New Category">C</a>
+                </li>
+            </ul>
+        </div>
     </div>
 
 {% endblock %}
